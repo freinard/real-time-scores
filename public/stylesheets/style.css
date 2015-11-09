@@ -1,0 +1,35 @@
+html, body, h1, h2, div {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    font: inherit;
+    font-size: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    font-size: 70px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 20px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.header {
+    background-color: #484848;
+    color: #FFFFFF;
+}
+
+.sub-header {
+    padding: 10px 0px;
+}
+
+.links {
+    text-align: center;
+    background-color: #999999;
+    height: 100%;
+}

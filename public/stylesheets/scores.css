@@ -1,0 +1,32 @@
+.scores {
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.scores table {
+    width: 400px;
+    border-collapse: collapse;
+}
+
+.scores table td {
+    border-width: 1px;
+    border-style: solid;
+    padding: 5px;
+}
+
+.scores .status {
+    float: left;
+}
+
+.scores .station {
+    float: right;
+}
+
+.scores li {
+    list-style-type: none;
+    margin-bottom: 30px;
+}
+
+.scores .team-name{
+    width: 85%;
+}
