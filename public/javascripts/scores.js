@@ -1,7 +1,7 @@
 $(function () {
 
     function buildScore(game) {
-        return '<li>' + game.id + '<table><tr><th colspan="2">' +
+        return '<li><table><tr><th colspan="2">' +
             '<span class="status">' + game.status + '</span>' +
             '<span class="station">' + game.station + '</span>' +
             '</th></tr><tr>' +
