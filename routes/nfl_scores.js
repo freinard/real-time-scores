@@ -1,25 +1,46 @@
 var express = require('express');
-var repo = require('../modules/repo.js');
+var gameRepo = require('../modules/gameRepo.js');
 var router = express.Router();
 var parser = require('body-parser');
 var urlEncodedParser = parser.urlencoded({extended: false});
 
 router.get('/', function (req, res, next) {
-    res.render('nfl_scores', {dates: repo.getAll()});
+    if (req.accepts('application/json')) {
+        res.status(200).json(gameRepo.getAll());
+    } else if (req.accepts('text/html')) {
+        res.render('nfl_scores', {dates: repo.getAll()});
+    } else {
+        res.status(406);
+    }
 });
 
-router.put('/:id', urlEncodedParser, function(req, res, next) {
-    console.log("Game id: " + req.params.id, + " -> " + JSON.stringify(req.body));
-    var gameId = req.params.id;
-    var game = repo.get(gameId);
-    console.log("Before update " + JSON.stringify(game));
+var updateScore = function (req, res, next) {
+    var game = req.game;
     game.status = req.body.status;
     game.homeScore = req.body.homeScore;
     game.awayScore = req.body.awayScore;
-    console.log("After update " + JSON.stringify(game));
-    repo.saveOrUpdate(game);
-    console.log(repo.getAll().length);
     res.status(200).json("Score Entered: " + JSON.stringify(game));
-});
+};
+
+var insert = function (req, res, next) {
+    if (req.params.id === undefined) {
+        var entry = req.body;
+        game = {
+            date: entry.date,
+            homeTeam: entry.homeTeam,
+            awayTeam: entry.awayTeam,
+        };
+        req.game = gameRepo.save(game);
+    }
+    next();
+};
+
+var find = function () {
+    req.game = gameRepo.get(req.params.id);
+    next();
+};
+
+router.put('/', urlEncodedParser, insert, updateScore);
+router.put('/:id', urlEncodedParser, find, updateScore);
 
 module.exports = router;

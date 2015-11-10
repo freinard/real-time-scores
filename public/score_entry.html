@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/scores.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="javascripts/entry.js"></script>
+    <title>NFL Scores</title>
+</head>
+<body>
+<div class="header">
+    <h1>NFL Score Entry</h1>
+</div>
+
+<p>
+
+<form id="score_update">
+    <legend>Update a Score</legend>
+    <input name="gameId" placeholder="Game Id (id from below)"/><br/>
+    <input name="status" placeholder="Game Status"/><br/>
+    <input name="homeScore" placeholder="Home Score"/><br/>
+    <input name="awayScore" placeholder="Away Score"/><br/>
+    <input type="submit" value="Update"/>
+</form>
+</p>
+<p>
+
+<form id="score_entry">
+    <legend>Create a Score</legend>
+    <input name="date" placeholder="Game Date (YYYYMMDD)"/><br/>
+    <input name="status" placeholder="Game Status"/><br/>
+    <input name="station" placeholder="TV Station"/><br/>
+    <input name="homeTeam" placeholder="Home Team"/><br/>
+    <input name="homeScore" placeholder="Home Score"/><br/>
+    <input name="awayTeam" placeholder="Away Team"/><br/>
+    <input name="awayScore" placeholder="Away Score"/><br/>
+    <input type="submit" value="Create"/>
+</form>
+</p>
+
+<ul class="scores" id="scores">
+
+</ul>
+
+</body>
+</html>
