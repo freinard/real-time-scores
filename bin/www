@@ -19,12 +19,11 @@ app.set('port', port);
  * Create HTTP server.
  */
 var server = http.createServer(app);
-updateScores(server, gameRepo);
 
 /**
- * Hook up socket.io
+ * Hook up socket.io score updates
  */
-
+updateScores(server, gameRepo);
 
 /**
  * Listen on provided port, on all network interfaces.
