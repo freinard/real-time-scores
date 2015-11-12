@@ -12,6 +12,9 @@ module.exports = function (gameRepo) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(express.static(path.join(__dirname, 'public')));
+    app.get('/', function (req, res) {
+        res.redirect(301, '/scores.html');
+    });
     app.use('/nfl_scores', nflScores(gameRepo));
     app.use(function (req, res, next) {
         var err = new Error('Not Found');
