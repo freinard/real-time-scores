@@ -1,20 +1,21 @@
+var entryHandlers = {};
 var games = [{
     id: 1,
     date: 20151005,
-    status: 'FINAL',
-    station: 'NFL Network',
-    homeTeam: 'Cincinnati Bengals',
-    homeScore: 31,
-    awayTeam: 'Cleveland Browns',
+    status: 'Q2 8:00',
+    station: 'CBS',
+    homeTeam: 'Choppers',
+    homeScore: 7,
+    awayTeam: 'Mini Bikes',
     awayScore: 10
 }, {
     id: 2,
     date: 20151004,
     status: '1:00pm EST',
     station: 'CBS',
-    homeTeam: 'Tennessee Titans',
+    homeTeam: 'Jumpers',
     homeScore: 0,
-    awayTeam: 'San Diego Chargers',
+    awayTeam: 'Blitz',
     awayScore: 0
 }];
 
@@ -32,9 +33,22 @@ exports.get = function (id) {
 
 exports.save = function (game) {
     game.id = games.push(game);
+    entryHandlers['new'].forEach(function (handler) {
+        handler(game);
+    });
     return game;
 }
 
-exports.update = function(game){
+exports.update = function (game) {
     games[game.id - 1] = game;
+    entryHandlers['update'].forEach(function (handler) {
+        handler(game);
+    });
+}
+
+exports.on = function (key, handler) {
+    if (entryHandlers[key] === undefined) {
+        entryHandlers[key] = [];
+    }
+    entryHandlers[key].push(handler);
 }

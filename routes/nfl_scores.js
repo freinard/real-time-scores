@@ -1,46 +1,32 @@
+var gameRepo;
 var express = require('express');
-var gameRepo = require('../modules/gameRepo.js');
 var router = express.Router();
-var parser = require('body-parser');
-var urlEncodedParser = parser.urlencoded({extended: false});
 
 router.get('/', function (req, res, next) {
     if (req.accepts('application/json')) {
         res.status(200).json(gameRepo.getAll());
-    } else if (req.accepts('text/html')) {
-        res.render('nfl_scores', {dates: repo.getAll()});
     } else {
         res.status(406);
     }
 });
 
-var updateScore = function (req, res, next) {
-    var game = req.game;
-    game.status = req.body.status;
-    game.homeScore = req.body.homeScore;
-    game.awayScore = req.body.awayScore;
+router.put('/:id', function (req, res, next) {
+    var game = gameRepo.get(req.params.id);
+    var gameUpdate = req.body;
+    game.status = gameUpdate.status;
+    game.homeScore = gameUpdate.homeScore;
+    game.awayScore = gameUpdate.awayScore;
+    gameRepo.update(game);
     res.status(200).json("Score Entered: " + JSON.stringify(game));
-};
+});
 
-var insert = function (req, res, next) {
-    if (req.params.id === undefined) {
-        var entry = req.body;
-        game = {
-            date: entry.date,
-            homeTeam: entry.homeTeam,
-            awayTeam: entry.awayTeam,
-        };
-        req.game = gameRepo.save(game);
-    }
-    next();
-};
+router.put('/', function (req, res, next) {
+    gameRepo.save(req.body);
+    res.status(200).json("Score Entered: " + JSON.stringify(req.body));
+});
 
-var find = function () {
-    req.game = gameRepo.get(req.params.id);
-    next();
-};
+module.exports = function (gameRepository) {
+    gameRepo = gameRepository;
+    return router;
+}
 
-router.put('/', urlEncodedParser, insert, updateScore);
-router.put('/:id', urlEncodedParser, find, updateScore);
-
-module.exports = router;

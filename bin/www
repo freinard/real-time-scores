@@ -3,7 +3,9 @@
 /**
  * Module dependencies.
  */
-var app = require('../app');
+var gameRepo = require('../modules/gameRepo');
+var app = require('../app')(gameRepo);
+var updateScores = require('../modules/score_updates');
 var debug = require('debug')('sports:server');
 var http = require('http');
 
@@ -17,6 +19,12 @@ app.set('port', port);
  * Create HTTP server.
  */
 var server = http.createServer(app);
+updateScores(server, gameRepo);
+
+/**
+ * Hook up socket.io
+ */
+
 
 /**
  * Listen on provided port, on all network interfaces.
