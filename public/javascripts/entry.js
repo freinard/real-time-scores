@@ -60,7 +60,6 @@ $(function () {
 
     var socket = io.connect();
     socket.on('update', function (gameUpdate) {
-        console.log("update: " + JSON.stringify(gameUpdate));
         var selector = '[data-game-id="' + gameUpdate.id + '"]';
         $(selector).find('.status').text(gameUpdate.status);
         $(selector).find('#awayScore').text(gameUpdate.awayScore);
@@ -68,7 +67,6 @@ $(function () {
     });
 
     socket.on('new', function (gameUpdate) {
-        console.log("new: " + JSON.stringify(gameUpdate));
         $('#scores').append(buildScore(gameUpdate));
     });
 
