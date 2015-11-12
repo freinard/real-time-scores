@@ -7,4 +7,6 @@ To get the project running:<br />
 1) npm install<br />
 2) node bin/www
 
-The consumer page is <strong>scores.html</strong>.  The page that would be used by the entry person is <strong>score_entry.html</strong>.
+There is a demo app up on heroku:<br />
+Score consumption: <a href="https://real-time-sports.herokuapp.com/scores.html">https://real-time-sports.herokuapp.com/scores.html</a><br />
+Score Entry: <a href="https://real-time-sports.herokuapp.com/score_entry.html">https://real-time-sports.herokuapp.com/score_entry.html</a>
