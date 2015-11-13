@@ -1,4 +1,3 @@
-var entryHandlers = {};
 var games = [{
     id: 1,
     date: 20151005,
@@ -19,36 +18,36 @@ var games = [{
     awayScore: 0
 }];
 
-exports.getAll = function () {
+const util = require('util');
+const EventEmitter = require('events');
+function GameRepository() {
+    EventEmitter.call(this);
+}
+
+util.inherits(GameRepository, EventEmitter);
+
+GameRepository.prototype.getAll = function () {
     return games.slice();
 };
 
-exports.get = function (id) {
+GameRepository.prototype.get = function (id) {
     if (id !== undefined) {
         return games[id - 1];
     } else {
         return undefined;
     }
-}
+};
 
-exports.save = function (game) {
+GameRepository.prototype.save = function (game) {
     game.id = games.push(game);
-    entryHandlers['new'].forEach(function (handler) {
-        handler(game);
-    });
+    this.emit('new', game);
     return game;
-}
+};
 
-exports.update = function (game) {
+GameRepository.prototype.update = function (game) {
     games[game.id - 1] = game;
-    entryHandlers['update'].forEach(function (handler) {
-        handler(game);
-    });
-}
+    this.emit('update', game);
+    console.log('GOT UPDATE');
+};
 
-exports.on = function (key, handler) {
-    if (entryHandlers[key] === undefined) {
-        entryHandlers[key] = [];
-    }
-    entryHandlers[key].push(handler);
-}
+module.exports = GameRepository;

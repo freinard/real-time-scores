@@ -3,7 +3,8 @@
 /**
  * Module dependencies.
  */
-var gameRepo = require('../modules/gameRepo');
+var GameRepository = require('../modules/gameRepo');
+var gameRepo = new GameRepository();
 var app = require('../app')(gameRepo);
 var updateScores = require('../modules/score_updates');
 var debug = require('debug')('sports:server');
